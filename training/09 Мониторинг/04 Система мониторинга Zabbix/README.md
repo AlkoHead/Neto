@@ -27,6 +27,7 @@ login: Admin
 pass: zabbix  
 ![adminka](img/adminka.JPG)
 2. Приложите в файл README.md текст использованных команд в GitHub.  
+Ссылка на [Zabbix](https://www.zabbix.com/ru/download?zabbix=7.0&os_distribution=ubuntu&os_version=24.04&components=server_frontend_agent&db=pgsql&ws=apache)  
 ```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install postgresql
