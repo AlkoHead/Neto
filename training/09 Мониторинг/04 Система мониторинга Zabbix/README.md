@@ -23,7 +23,7 @@
 
 ### Решение 1
 1. Прикрепите в файл README.md скриншот авторизации в админке.  
-При подключении вводим <ins>http:// ip-address /zabbix</ins>  
+При подключении вводим *http:// ip-address сервера /zabbix*  
 login: Admin  
 pass: zabbix  
 ![adminka](img/adminka.JPG)
