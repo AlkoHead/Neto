@@ -23,7 +23,8 @@
 
 ### Решение 1
 1. Прикрепите в файл README.md скриншот авторизации в админке.  
-![adminka](img/adminka.JPG)
+login: Admin
+pass: zabbix  
 2. Приложите в файл README.md текст использованных команд в GitHub.  
 ```bash
 sudo apt update && sudo apt upgrade -y
