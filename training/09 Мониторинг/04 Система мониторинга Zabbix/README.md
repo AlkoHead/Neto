@@ -91,7 +91,10 @@ tail -f /var/log/zabbix/zabbix_agentd.log
 Установите Zabbix Agent на Windows (компьютер) и подключите его к серверу Zabbix.
 
 #### Требования к результаты 
-1. Приложите в файл README.md скриншот раздела Latest Data, где видно свободное место на диске C:
+1. Приложите в файл README.md скриншот раздела Latest Data, где видно свободное место на диске C:  
+Ссылка для скачивания [zabbix agent](https://www.zabbix.com/ru/download_agents?version=7.0+LTS&release=7.0.9&os=Windows&os_version=Any&hardware=amd64&encryption=OpenSSL&packaging=MSI&show_legacy=0)
+![disk01](img/windisk_av_01.JPG)
+![disk02](img/windisk_av_02.JPG)
 --- 
 
 ## Критерии оценки
