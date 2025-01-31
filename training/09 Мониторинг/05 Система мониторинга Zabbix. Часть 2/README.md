@@ -25,8 +25,9 @@
 #### Требования к результату
 - [ ] Прикрепите в файл README.md скриншот страницы шаблона с названием «Задание 1»  
 В веб-интерфейсе Zabbix Servera в разделе Templates создайте новый шаблон:
-![creat_templs](img/creat_tempate01.JPG)
-
+![creat_templs](img/creat_tempate01.JPG)  
+Создайте Item, который будет собирать информацию об загрузке CPU и RAM в процентах  
+![Item_ram_cpu](img/Items_CPU_RAM.JPG)  
 
  ---
 
