@@ -64,10 +64,28 @@ systemctl status zabbix-agent.service
 
 #### Требования к результаты 
 1. Приложите в файл README.md скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу
+![data-hosts](img/data-hosts.JPG)  
 2. Приложите в файл README.md скриншот лога zabbix agent, где видно, что он работает с сервером
+![agent](img/agetn_work.JPG)
 3. Приложите в файл README.md скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные.
-4. Приложите в файл README.md текст использованных команд в GitHub
+![latest](img/mon_latest.JPG)
+4. Приложите в файл README.md текст использованных команд в GitHub  
+Ссылка на [Zabbix клиент](https://www.zabbix.com/ru/download?zabbix=7.0&os_distribution=ubuntu&os_version=24.04&components=agent_2&db=&ws=)  
 
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo -s
+wget https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.0+ubuntu24.04_all.deb
+dpkg -i zabbix-release_latest_7.0+ubuntu24.04_all.deb
+apt update
+apt install zabbix-agent
+sed -i 's/Server=127.0.0.1/Server=192.168.1.77/g' /etc/zabbix/zabbix_agentd.conf
+systemctl restart zabbix-agent
+systemctl status zabbix-agent
+systemctl enable zabbix-agent
+tail -f /var/log/zabbix/zabbix_agentd.log
+
+```
 ---
 ## Задание 3 со звёздочкой*
 Установите Zabbix Agent на Windows (компьютер) и подключите его к серверу Zabbix.
