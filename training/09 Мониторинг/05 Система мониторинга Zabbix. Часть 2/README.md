@@ -65,6 +65,12 @@
 ![host_linux_latest_data](img/hosts_linux_latest_data.JPG)
 
 ### Решение 3
+Привязать шаблоны с одинаковыми значениями не получится.
+
+![teml_erro](img/teml_erro.JPG)
+
+Со своим шаблоном  
+![task_03](img/task_03.JPG)
 
  ---
 
