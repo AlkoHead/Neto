@@ -1,6 +1,3 @@
-# git-hw
-netology git home work
-
 ### Задание 1
 
 **Что нужно сделать:**
