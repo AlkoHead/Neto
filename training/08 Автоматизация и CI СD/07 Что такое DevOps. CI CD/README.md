@@ -1,7 +1,5 @@
 # Домашнее задание к занятию «Что такое DevOps. СI/СD»
 
-### Боровиков Максим
-
 ---
 
 ### Задание 1
@@ -98,11 +96,61 @@ pipeline {
 **Что нужно сделать:**
 
 1. Установите на машину Nexus.
-1. Создайте raw-hosted репозиторий.
-1. Измените pipeline так, чтобы вместо Docker-образа собирался бинарный go-файл. Команду можно скопировать из Dockerfile.
-1. Загрузите файл в репозиторий с помощью jenkins.
+2. Создайте raw-hosted репозиторий.
+3. Измените pipeline так, чтобы вместо Docker-образа собирался бинарный go-файл. Команду можно скопировать из Dockerfile.
+4. Загрузите файл в репозиторий с помощью jenkins.
 
 В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
+
+### Решение 3
+
+Надо установить предварительно Docker
+
+```bash
+docker run -d -p 8081:8081 --name nexus -e INSTALL4J_ADD_VM_PARAMS="-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m" sonatype/nexus3
+```
+
+Повле входа на ip-сервера:8081 в панеле предлагается забрать пароль для входа.
+
+```bash
+docker exec -t nexus bash -c 'cat /nexus-data/admin.password && echo'
+```
+
+![install_nexus](img/install_nexus.JPG)
+![create_repo](img/create_repository.JPG)
+
+Код pipeline
+```
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: 'main']], 
+                                userRemoteConfigs: [[url: 'https://github.com/AlkoHead/sdvps-materials.git']])
+            }
+        }
+
+
+  stage('Test') {
+   steps {
+    sh '/usr/local/go/bin/go test .'
+   }
+  }
+  stage('Build') {
+   steps {
+    sh '/usr/local/go/bin/go build -a -installsuffix nocgo -o /tmp/hw_08_02 .'
+   }
+  }
+  stage('Push') {
+   steps {
+    sh 'curl -u admin:12345 http://192.168.1.45:8081/repository/hw_08_02/ --upload-file /tmp/hw_08_02 -v'   }
+  }
+ }
+}
+```
+![jen_to_nesux](img/jenkins_to_nexis.JPG)
+![nexus_create_file](img/nexus_create_file.JPG)
 
 ---
 ## Дополнительные задания* (со звёздочкой)
