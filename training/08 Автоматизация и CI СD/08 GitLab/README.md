@@ -52,7 +52,7 @@ sudo docker exec -ti gitlab-runner bash
 # регестрируемся
 ```
 ![runner_reg02](img/runner_reg02.JPG)  
-Из GitLab
+Из GitLab  
 ![runner_gitlab](img/runner_gitlab.JPG)
 
 ---
