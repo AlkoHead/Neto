@@ -30,6 +30,30 @@ sudo gitlab-ctl reconfigure
 Входим http:// ip  
 Логин: root  
 Пасс находится по адресу /etc/gitlab/initial_root_password  
+Зарегистрируйте gitlab-runner для этого проекта и запустите его в режиме Docker.  
+Установка gitlab-runner:  
+```bash
+curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash
+sudo apt install gitlab-runner
+sudo gitlab-runner register
+```
+![runner_reg01](img/runner_reg01.JPG)  
+
+**Из докера**
+```bash
+docker run -d --name gitlab-runner --restart always \
+  -v /srv/gitlab-runner/config:/etc/gitlab-runner \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  gitlab/gitlab-runner:latest
+
+docker ps
+# заходим в контейнер
+sudo docker exec -ti gitlab-runner bash
+# регестрируемся
+```
+![runner_reg02](img/runner_reg02.JPG)  
+Из GitLab
+![runner_gitlab](img/runner_gitlab.JPG)
 
 ---
 
