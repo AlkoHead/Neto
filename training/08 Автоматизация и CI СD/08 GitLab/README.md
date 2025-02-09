@@ -31,6 +31,10 @@ sudo gitlab-ctl reconfigure
 Логин: root  
 Пасс находится по адресу /etc/gitlab/initial_root_password  
 Зарегистрируйте gitlab-runner для этого проекта и запустите его в режиме Docker.  
+Сброс пароля:  
+```
+sudo gitlab-rake "gitlab:password:reset"
+```
 Установка gitlab-runner:  
 ```bash
 curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash
@@ -69,7 +73,23 @@ sudo docker exec -ti gitlab-runner bash
  * файл gitlab-ci.yml для своего проекта или вставьте код в соответствующее поле в шаблоне; 
  * скриншоты с успешно собранными сборками.
  
- 
+```bash
+git clone https://github.com/netology-code/sdvps-materials.git
+# преходим в клонированную папку
+cd sdvps-materials/
+git status
+git remote -v
+# изменяем origin 
+git remote add my_gitlab http://192.168.1.116/root/my_project.git
+git remote -v
+```
+![new_remote](img/new_remote.JPG)  
+```bash
+git push my_gitlab
+```
+![push_project](img/push_project.JPG)  
+
+
 ---
 ## Дополнительные задания* (со звёздочкой)
 
