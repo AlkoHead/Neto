@@ -43,6 +43,9 @@ gitlab-ctl restart
 gitlab-ctl status
 sudo gitlab-ctl tail postgresql
 ```
+Подготовку задания докера по [инструкции](https://github.com/AlkoHead/Neto/blob/main/training/08%20Автоматизация%20и%20CI%20СD/08%20GitLab/GITLAB.md)   
+
+Общие моменты  
 Установка gitlab-runner:  
 ```bash
 curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash
