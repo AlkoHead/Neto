@@ -29,6 +29,8 @@
 
 ![config](img/config.JPG)  
 
+*Не забываем сохронять конфигурацию, т.к. приоритеты начинают дейстовать после сохронения*  
+
 Проверка:  
 ![net_check01](img/net_check01.JPG)  
 ![net_check02](img/net_check02.JPG)  
