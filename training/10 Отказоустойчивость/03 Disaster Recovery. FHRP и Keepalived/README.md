@@ -31,7 +31,8 @@
 
 Проверка:  
 ![net_check01](img/net_check01.JPG)  
-![net_check02]()
+![net_check02](img/net_check02.JPG)  
+
 
 ------
 
