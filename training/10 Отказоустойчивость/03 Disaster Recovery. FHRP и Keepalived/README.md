@@ -49,10 +49,42 @@ sh standby brief
 - Настройте Keepalived так, чтобы он запускал данный скрипт каждые 3 секунды и переносил виртуальный IP на другой сервер, если bash-скрипт завершался с кодом, отличным от нуля (то есть порт веб-сервера был недоступен или отсутствовал index.html). Используйте для этого секцию vrrp_script
 - На проверку отправьте получившейся bash-скрипт и конфигурационный файл keepalived, а также скриншот с демонстрацией переезда плавающего ip на другой сервер в случае недоступности порта или файла index.html
 
-Установка keepalived:  
 ```bash
-
+# Установка keepalived
+sudo apt install keepalived
+# создаём файл с настройками
+sudo nano /etc/keepalived/keepalived.conf
+# установка nginx
+sudo apt install nginx
+# редактирование файла nginx
+sudo nano /var/www/html/index.nginx-debian.html
 ```
+При создании скрепта не забываем дать 
+```bash
+sudo nano check_nginx.sh
+sudo chmod 755 check_nginx.sh
+```
+Примеры keepalived [MASTER](config/MASTER_keepalived.conf) [BACKUP](config/MASTER_keepalived.conf) [check_nginx](config/check_nginx.sh)  
+Скрипт  
+```bash
+#!/bin/bash
+if [[ $(netstat -ant | grep LISTEN | grep :80) ]] && [[ -f /var/www/html/index.nginx-debian.html ]]; then
+  exit 0
+else
+  exit 1
+fi
+```
+Демонстрация переезда:  
+![keepalived01](img/keepalived01.JPG)  
+Останавливаем службу nginx  
+```bash
+# проверка порта
+netstat -ant | grep LISTEN | grep :80
+# отключение порта
+sudo kill $(sudo lsof -t -i:80)
+```
+![keepalived02](img/keepalived02.JPG)
+
 ------
 
 ## Дополнительные задания со звёздочкой*
