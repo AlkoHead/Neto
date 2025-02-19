@@ -47,7 +47,7 @@ sudo systemctl reload haproxy.service
 - HAproxy должен балансировать только тот http-трафик, который адресован домену example.local
 - На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy c использованием домена example.local и без него.  
 
-Конфиг [HAProxy](config/haproxy02.cfg) 
+Конфиг [HAProxy](config/haproxy02.cfg)  
 Часть конфига haproxy.cfg
 ```
 backend web_servers    # секция бэкенд
