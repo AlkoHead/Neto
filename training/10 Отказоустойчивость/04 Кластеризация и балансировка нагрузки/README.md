@@ -22,6 +22,23 @@
 - Настройте балансировку Round-robin на 4 уровне.
 - На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy.
 
+```bash
+# запуск simple python сервера
+python3 -m http.server 8888 --bind 0.0.0.0
+python3 -m http.server 9999 --bind 0.0.0.0
+# Install HAProxy
+sudo apt install haproxy
+# Файл конфигурации
+sudo nano /etc/haproxy/haproxy.cfg
+# проверка конфигурации
+sudo haproxy -f /etc/haproxy/haproxy.cfg -c
+# перезапуск сервиса(перепрочтение файла конфигурации)
+sudo systemctl reload haproxy.service
+```
+Статистика HAPoxy находится по дресу *http:// ip :888/stats*  
+Конфиг [HAProxy](config/haproxy01.cfg)  
+![check01](img/check_tcp.JPG)  
+
 ------
 
 ### Задание 2
