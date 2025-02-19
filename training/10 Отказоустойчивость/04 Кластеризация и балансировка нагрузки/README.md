@@ -48,6 +48,17 @@ sudo systemctl reload haproxy.service
 - На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy c использованием домена example.local и без него.  
 
 Конфиг [HAProxy](config/haproxy02.cfg) 
+Часть конфига haproxy.cfg
+```
+backend web_servers    # секция бэкенд
+        mode http
+        balance roundrobin
+        option httpchk
+        http-check send meth GET uri /index.html
+        server s1 127.0.0.1:8888 weight 2 check
+        server s2 127.0.0.1:9999 weight 3 check
+        server s3 127.0.0.1:4444 weight 4 check
+```
 
 ![check_task02](img/check_task02.JPG)  
 ![HAProxy_stats](img/HAProxy_stats.JPG)  
