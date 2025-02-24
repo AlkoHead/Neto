@@ -57,6 +57,18 @@ else
         echo "$(date) - Backup - FAILED" >> /var/log/neto_hw/hw.log
 fi
 ```
+Для записи в /var/log/neto_hw/hw.log нужно изменить права доступа
+```bash
+sudo chown maks:maks -R /var/log/neto_hw/
+```
+
+Полезные команды:
+```bash
+# список 
+crontab -l
+# настрйока
+crontab -e
+```
 Crontab  
 ![crontab_01](img/crontab_01.JPG)  
 Вывод лога  
