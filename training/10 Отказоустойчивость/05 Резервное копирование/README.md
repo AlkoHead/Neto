@@ -66,7 +66,7 @@ sudo chown maks:maks -R /var/log/neto_hw/
 ```bash
 # список 
 crontab -l
-# настрйока
+# настройка
 crontab -e
 ```
 Crontab  
