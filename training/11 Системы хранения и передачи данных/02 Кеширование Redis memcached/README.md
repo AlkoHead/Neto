@@ -38,6 +38,18 @@ systemctl status memcached
 ```
 ![systemctl status memcached](img/status_memcached.JPG)  
 
+Запуск из контейнера:  
+(должен быть установлен docker)  
+```bash
+docker run --name my-memcached -d -p 11211:11211 memcached:latest -m 64
+```
+Подключение:  
+```bash
+telnet localhost 11211
+# статистику вывести
+stats
+``` 
+
 ---
 
 ### Задание 3. Удаление по TTL в Memcached
@@ -48,6 +60,14 @@ systemctl status memcached
 
 ![memcached](img/memcached.JPG)  
 
+Добавить до следующей перезагрузки или очистки значение в memcached надо:  
+```bash
+set name 0 0 4
+igor
+get name
+# для удления 'name'
+delete name
+```
 ---
 
 ### Задание 4. Запись данных в Redis
