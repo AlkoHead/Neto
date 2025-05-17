@@ -65,7 +65,7 @@ stats
 set name 0 0 4
 igor
 get name
-# для удления 'name'
+# для удаления 'name'
 delete name
 ```
 ---
@@ -87,9 +87,9 @@ redis-cli
 ```bash
 docker run --name my-redis -d -p 6379:6379 redis:latest
 # подключение
-docker exec -it my-redis redis-cli
+docker exec -it my-redis redis-cli  
 ```
-
+![redis](img/redis.PNG)
 
 
 
