@@ -25,7 +25,7 @@ rabbitmqctl set_policy ha-all "" '{"ha-mode":"all","ha-sync-mode":"automatic"}
 
 - после выполнения настройки репликиции любым из спопобов на вкладке Exchanges можно убедиться что в колонке Features отображается политика ha-all как на рисунке ниже. 
 ```
-![Exchanges](/img/exchanges.png)
+![Exchanges](img/exchanges.png)
 
 
 ```
