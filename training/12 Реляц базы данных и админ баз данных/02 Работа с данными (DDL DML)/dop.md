@@ -1,5 +1,7 @@
 1.5 задание альтернативная комманда
+```sql
 SELECT * FROM information_schema.user_privileges WHERE GRANTEE="'sys_temp'@'*'";
+```
 
 Какие плагины шифрования используются
 ```sql
@@ -52,3 +54,19 @@ ORDER BY
     t.TABLE_NAME, k.ORDINAL_POSITION;
 ```
 
+К какой базе подключён:  
+```sql
+SELECT DATABASE();
+# через системную переменную
+SHOW VARIABLES LIKE 'database';
+```
+Проверка через INFORMATION_SCHEMA (для текущей сессии)
+```sql
+SELECT SCHEMA_NAME 
+FROM INFORMATION_SCHEMA.SCHEMATA 
+WHERE SCHEMA_NAME = DATABASE();
+```
+Подключение к базе
+```sql
+USE your_database_name;
+```
