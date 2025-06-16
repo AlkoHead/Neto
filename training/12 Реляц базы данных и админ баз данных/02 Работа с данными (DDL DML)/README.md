@@ -8,10 +8,18 @@
 
 ### Задание 1
 1.1. Поднимите чистый инстанс MySQL версии 8.0+. Можно использовать локальный сервер или контейнер Docker.  
-[Docker файл](scripts/docker-compose.yml)  
-1.2. Создайте учётную запись sys_temp.  
 
+[Docker файл](scripts/docker-compose.yml)  
+
+1.2. Создайте учётную запись sys_temp.  
+```bash
+CREATE USER 'sys_temp'@'*' IDENTIFIED BY 'secret';
+```
 1.3. Выполните запрос на получение списка пользователей в базе данных. (скриншот)
+```bash
+SELECT User FROM mysql.user;
+```
+![select_users](img/select_users.JPG)  
 
 1.4. Дайте все права для пользователя sys_temp. 
 
