@@ -23,9 +23,18 @@ SELECT User FROM mysql.user;
 
 1.4. Дайте все права для пользователя sys_temp. 
 
+```bash
+GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'*' WITH GRANT OPTION;
+```
+
 1.5. Выполните запрос на получение списка прав для пользователя sys_temp. (скриншот)
 
-1.6. Переподключитесь к базе данных от имени sys_temp.
+```bash
+SHOW GRANTS FOR 'sys_temp'@'*';
+```
+![sec](img/sec.JPG)  
+
+1.6. Переподключитесь к базе данных от имени sys_temp.  
 
 Для смены типа аутентификации с sha2 используйте запрос: 
 ```sql
