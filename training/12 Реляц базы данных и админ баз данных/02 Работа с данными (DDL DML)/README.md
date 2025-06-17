@@ -18,7 +18,7 @@ docker run --name test_db -p 3306:3306 -e MYSQL_ROOT_PASSWORD=secret -d mysql:la
 
 1.2. Создайте учётную запись sys_temp.  
 ```bash
-CREATE USER 'sys_temp'@'*' IDENTIFIED BY 'secret';
+CREATE USER 'sys_temp'@'%' IDENTIFIED BY 'secret';
 ```
 1.3. Выполните запрос на получение списка пользователей в базе данных. (скриншот)
 ```bash
@@ -29,13 +29,13 @@ SELECT User FROM mysql.user;
 1.4. Дайте все права для пользователя sys_temp. 
 
 ```bash
-GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'*' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'%' WITH GRANT OPTION;
 ```
 
 1.5. Выполните запрос на получение списка прав для пользователя sys_temp. (скриншот)
 
 ```bash
-SHOW GRANTS FOR 'sys_temp'@'*';
+SHOW GRANTS FOR 'sys_temp'@'%';
 ```
 ![sec](img/sec.JPG)  
 
