@@ -39,7 +39,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'%' WITH GRANT OPTION;
 ```bash
 SHOW GRANTS FOR 'sys_temp'@'%';
 ```
-![sec](img/sec.JPG)  
+![sec1](img/sec1.JPG)  
 
 1.6. Переподключитесь к базе данных от имени sys_temp.  
 
