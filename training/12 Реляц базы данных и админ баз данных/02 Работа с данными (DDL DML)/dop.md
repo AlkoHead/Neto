@@ -70,3 +70,12 @@ WHERE SCHEMA_NAME = DATABASE();
 ```sql
 USE your_database_name;
 ```
+
+*Результатом работы должны быть скриншоты обозначенных заданий, а также простыня со всеми запросами.*  
+```sql
+CREATE USER 'sys_temp'@'%' IDENTIFIED BY 'secret';
+SELECT User FROM mysql.user;
+GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'%' WITH GRANT OPTION;
+SHOW GRANTS FOR 'sys_temp'@'%';
+SELECT * FROM information_schema.user_privileges WHERE GRANTEE="'sys_temp'@'%'";
+```

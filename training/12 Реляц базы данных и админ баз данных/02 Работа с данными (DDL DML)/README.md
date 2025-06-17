@@ -56,15 +56,6 @@ ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass
 
 ![schema](img/schema.JPG)  
 
-*Результатом работы должны быть скриншоты обозначенных заданий, а также простыня со всеми запросами.*  
-```sql
-CREATE USER 'sys_temp'@'*' IDENTIFIED BY 'secret';
-SELECT User FROM mysql.user;
-GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'*' WITH GRANT OPTION;
-SHOW GRANTS FOR 'sys_temp'@'*';
-SELECT * FROM information_schema.user_privileges WHERE GRANTEE="'sys_temp'@'*'";
-```
-
 
 ### Задание 2
 Составьте таблицу, используя любой текстовый редактор или Excel, в которой должно быть два столбца: в первом должны быть названия таблиц восстановленной базы, во втором названия первичных ключей этих таблиц. Пример: (скриншот/текст)
@@ -92,12 +83,12 @@ WHERE
 
 ```sql
 SELECT user();
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'sys_temp'@'*';
-SHOW GRANTS FOR 'sys_temp'@'*';
-GRANT ALL PRIVILEGES ON sakila.* TO 'sys_temp'@'*' WITH GRANT OPTION;
-SHOW GRANTS FOR 'sys_temp'@'*';
-REVOKE INSERT, UPDATE, DELETE ON sakila.* FROM 'sys_temp'@'*';
-SHOW GRANTS FOR 'sys_temp'@'*';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'sys_temp'@'%';
+SHOW GRANTS FOR 'sys_temp'@'%';
+GRANT ALL PRIVILEGES ON sakila.* TO 'sys_temp'@'%' WITH GRANT OPTION;
+SHOW GRANTS FOR 'sys_temp'@'%';
+REVOKE INSERT, UPDATE, DELETE ON sakila.* FROM 'sys_temp'@'%';
+SHOW GRANTS FOR 'sys_temp'@'%';
 FLUSH PRIVILEGES;
 ```
 3.2. Выполните запрос на получение списка прав для пользователя sys_temp. (скриншот)  
