@@ -66,6 +66,11 @@ SELECT SCHEMA_NAME
 FROM INFORMATION_SCHEMA.SCHEMATA 
 WHERE SCHEMA_NAME = DATABASE();
 ```
+Создать базу
+```sql
+CREATE DATABASE my;
+```
+
 Подключение к базе
 ```sql
 USE your_database_name;
@@ -78,4 +83,35 @@ SELECT User FROM mysql.user;
 GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'%' WITH GRANT OPTION;
 SHOW GRANTS FOR 'sys_temp'@'%';
 SELECT * FROM information_schema.user_privileges WHERE GRANTEE="'sys_temp'@'%'";
+```
+
+Глянуть права по конкретному пользователю
+```sql
+SELECT * from mysql.user
+WHERE User='sys_temp';
+```
+Более простой варик для пользователя test
+```sql
+SHOW GRANTS FOR 'test'
+```
+Добавить права на SELECT
+```sql
+GRANT SELECT ON my.* TO 'test'@'%';
+# все привилегии
+GRANT ALL PRIVILEGES  ON my.* TO 'test'@'%';
+```
+
+Применение изменений прав без перезагрузки сервера
+```sql
+FLUSH PRIVILEGES;
+```
+Убрать все привилегии
+```sql
+REVOKE ALL PRIVILEGES  ON my.* FROM 'test'@'%';
+```
+Удаление пользователя
+```sql
+DROP USER 'test'@'%';
+# проверка что пользователя больше нет
+SELECT * FROM mysql.user;
 ```
