@@ -23,6 +23,8 @@ CREATE USER 'sys_temp'@'%' IDENTIFIED BY 'secret';
 1.3. Выполните запрос на получение списка пользователей в базе данных. (скриншот)
 ```bash
 SELECT User FROM mysql.user;
+# или
+SELECT * from mysql.`user`;
 ```
 ![select_users](img/select_users.JPG)  
 
