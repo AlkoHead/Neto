@@ -24,10 +24,28 @@ VALUES (1, 'admin'), (2, 'devops'), (3, 'analitic');
 # проверка что добавили
 SELECT  * FROM  proffis;
 ```
-Добавим в persons, если id из proffis не совпадёт, выдаст ошибку
+Добавим в persons, если id из proffis не совпадёт, выдаст ошибку  
 ```sql
 INSERT INTO persons(id, first_name, last_name, age, prof_id)
 VALUES (1, "Igor", "Petrov", 30, 3);
 # проверка
 SELECT  * FROM  persons;
+```
+Изменение имяни таблички, sql понимает такие изменения  
+и это ни как не влияет на работу.
+```sql
+ALTER TABLE proffis RENAME TO works;
+```
+SQL не даст удалить табличку, если на неё, кто то ссылатеся  
+```sql
+DROP TABLE proffis;
+# не сработает, т.к. на неё есть жёстная ссылка
+```
+Но можно удалить зависимую табличку
+```sql
+DROP TABLE persons CASCADE;
+```
+Удаление базы данных
+```sql
+DROP DATABASE my;
 ```
