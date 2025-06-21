@@ -93,3 +93,5 @@ SELECT payment_id, CAST(payment_date AS DATE)
 FROM payment;
 ```
 
+
+
