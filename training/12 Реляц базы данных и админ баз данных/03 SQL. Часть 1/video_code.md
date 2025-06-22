@@ -81,6 +81,77 @@ FROM payment;
 SELECT payment_id, CAST(payment_date AS TIME)
 FROM payment;
 
+# округление
+SELECT ROUND(100.567);
+
+# округление до 2 знаков
+SELECT ROUND(100.567, 2);
+
+# обрезание до 2 знаков, если указать 0 то оставит целую часть
+SELECT TRUNCATE(100.567, 2);
+
+# округление до меньшего
+SELECT FLOOR(100.567);
+
+# округление до большего
+SELECT CEIL(100.567);
+
+# получение абасютного значения
+SELECT ABS(-100.567);
+
+SELECT payment_id, ROUND(amount)
+FROM payment;
+
+SELECT payment_id, ROUND(amount), FLOOR(amount)
+FROM payment;
+
+SELECT 2 + 2;
+SELECT POWER(2, 10);
+SELECT POWER(5, 2);
+SELECT SQRT(25);
+SELECT POWER(1024, 1/10);
+
+# но есть ньюанс
+SELECT POWER(8, 1/3); -- бывает не коректно считает
+SELECT POWER(16, 1/4);
+SELECT POWER(32, 1/5);
+
+# деление без остатка
+SELECT 1024 DIV 100; -- результат 10
+
+# показывает остаток
+SELECT 1024 % 100; -- результат 24
+
+# полуение наибольшего значения
+SELECT GREATEST(1, 2, 3, 100, 8);
+
+# получение минимального значения
+SELECT LEAST(1, 2, 3, 100, 8);
+
+# генерим случайно число
+SELECT RAND();
+
+# в определённом диапазоне
+SELECT RAND() * 100;
+
+# объединение строк
+SELECT CONCAT(first_name, last_name)
+FROM actor;
+# или разделять
+SELECT CONCAT(first_name, "_", last_name, "_", actor_id)
+FROM actor;
+
+# передаём разделитель одного типа
+SELECT CONCAT_WS(" ", first_name, last_name)
+FROM actor;
+# или рахделитель "_"
+SELECT CONCAT_WS("_", first_name, last_name)
+FROM actor;
+
+
+
+
+
 
 
 

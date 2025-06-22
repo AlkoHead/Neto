@@ -93,5 +93,114 @@ SELECT payment_id, CAST(payment_date AS DATE)
 FROM payment;
 ```
 
+### Округление
+Для округления в MySQL используются следующие функции:
+- **ROUND** – округляет число до заданного числа десятичных
+знаков,  
+- **TRUNCATE** – усекает число до указанного числа десятичных знаков,  
+- **FLOOR** – возвращает наибольшее целочисленное значение,
+которое меньше или равно числу,  
+- **CEIL** – возвращает наименьшее целочисленное значение,
+которое больше или равно числу,  
+- **ABS** – возвращает абсолютное (положительное) значение
+числа.  
+Округлим значения используя разные функции:  
+```sql
+SELECT ROUND(100.576); -- 101
+SELECT ROUND(100.576, 2); -- 100.58
+SELECT TRUNCATE(100.576, 2); -- 100.57
+SELECT FLOOR(100.576); -- 100
+SELECT CEIL(100.576); -- 101
+SELECT ABS(-100.576); -- 100.576
+```
+Получим «красивый» результат стоимости аренды за день:  
+```sql
+SELECT title, ROUND(rental_rate/rental_duration, 2) AS cost_per_day
+FROM film
+ORDER BY cost_per_day DESC, title;
+```
+
+### Арифметические операторы
+SQL поддерживает все основные арифметические операторы:  
+- **+ – * /** – стандартные операторы,
+- **POWER** – возведение в степень,
+- **SQRT** – возвращает квадратный корень числа,
+- **COS, SIN, TAN, COT, etc** – геометрические операторы,
+- **DIV** – целочисленное деление,
+- **%** – остаток от деления,
+- **GREATEST/LEAST** – возвращает наибольшее/наименьшее
+значение из списка,
+- **RAND** – возвращает случайное число в диапазоне от 0
+(включительно) до 1 (исключительно).
+```sql
+SELECT POWER(2, 3); -- 8
+SELECT SQRT(64); -- 8
+SELECT 64 DIV 6; -- 10
+SELECT 64%6; -- 4
+SELECT GREATEST(17, 5, 18, 21, 16); -- 21
+SELECT LEAST(17, 5, 18, 21, 16); -- 5
+SELECT RAND(); -- 0.005757967015502944
+```
+Посмотрим на работу некоторых функций на данных:  
+```sql
+SELECT
+rental_rate, rental_duration,
+rental_rate + rental_duration a,
+rental_rate - rental_duration b,
+rental_rate * rental_duration c,
+rental_rate / rental_duration d,
+rental_rate % rental_duration e,
+rental_rate DIV rental_duration f,
+POWER(rental_rate, rental_duration) g,
+COS(rental_rate) h, SIN(rental_duration) j
+FROM film;
+```
+
+### Работа со строками
+- **CONCAT, CONCAT_WS** – соединяет строки в одну, _WS – по
+сепаратору,
+- **LENGTH** – возвращает длину строки в байтах,
+- **CHAR_LENGTH** – возвращает длину строки в символах,
+- **POSITION** – возвращает позицию первого вхождения подстроки в строку,
+- **SUBSTR** – извлекает подстроку из строки,
+- **LEFT / RIGHT** – извлекает ряд символов из строки начиная слева / справа,
+- **LOWER / UPPER** – преобразует строку в нижний / верхний
+регистр,
+- **INSERT** – вставляет подстроку в строку в указанной позиции и для определенного количества символов,
+- **TRIM** – удаляет начальные и конечные пробелы из строки,
+- **REPLACE** – заменяет все вхождения подстроки в строке на новую подстроку,
+- **SUBSTRING_INDEX** – возвращает подстроку строки до того, как появится указанное число разделителей.  
+
+```sql
+SELECT CONCAT(last_name, ' ', first_name, ' ', email) FROM customer;
+###
+SELECT CONCAT_WS(' ', last_name, first_name, email) FROM customer;
+###
+SELECT
+LENGTH(last_name), CHAR_LENGTH(last_name),
+LENGTH('Привет'), CHAR_LENGTH('Привет')
+FROM customer;
+###
+SELECT
+POSITION('D' IN last_name), SUBSTR(last_name, 2, 3),
+LEFT(last_name, 3), RIGHT(last_name, 3)
+FROM customer;
+###
+SELECT
+POSITION('D' IN last_name), SUBSTR(last_name, 2, 3),
+LEFT(last_name, 3), RIGHT(last_name, 3)
+FROM customer;
+###
+SELECT
+LOWER(last_name), INSERT(last_name, 'MAX', 1, 5),
+REPLACE(last_name, 'A', 'X')
+FROM customer;
+```
+Выражение **LIKE** возвращает **true**, если строка соответствует заданному шаблону. Выражение **NOT LIKE** возвращает **false**, когда **LIKE** возвращает **true** и наоборот. Если шаблон не содержит знаков процента и подчеркиваний, тогда шаблон представляет в точности строку и **LIKE** работает как оператор сравнения. Подчеркивание (_) в шаблоне подменяет (вместо него подходит) любой символ. Знак процента **(%)** подменяет любую (в том числе и пустую) последовательность символов.
+```sql
+SELECT CONCAT(last_name, ' ', first_name)
+FROM customer
+WHERE first_name LIKE '%jam%';
+```
 
 
