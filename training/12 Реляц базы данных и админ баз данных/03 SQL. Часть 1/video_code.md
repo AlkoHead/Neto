@@ -223,8 +223,8 @@ FROM rental;
 SELECT return_date, DATE_FORMAT(return_date, "%D - %a - %m - %Y")
 FROM rental;
 
-SELECT return_date, 
-       DATE_FORMAT(return_date, "%D - %a - %m - %Y"),
-       TIME_FORMAT(TIME(return_date), "%H : %i : %s")
+SELECT return_date,  
+       DATE_FORMAT(return_date, "%D - %a - %m - %Y"),  
+       TIME_FORMAT(TIME(return_date), "%H : %i : %s")  
 FROM rental;
 ```
