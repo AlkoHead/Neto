@@ -148,10 +148,22 @@ FROM actor;
 SELECT CONCAT_WS("_", first_name, last_name)
 FROM actor;
 
+# сколько байт (не всегда количество байт = количеству символов)
+SELECT LENGTH(first_name), first_name
+FROM actor;
 
+# количество символов
+SELECT CHAR_LENGTH(first_name), first_name
+FROM actor;
 
+SELECT LENGTH("привет"), CHAR_LENGTH("привет");
 
+# первое вхождение искомого 
+SELECT POSITION("D" IN "AIDDAAANNDD");
 
+# вырезания и отризания
+SELECT last_name, SUBSTR(last_name, 2, 3), LEFT(last_name, 3), RIGHT(last_name, 3)
+FROM actor;
 
 
 
