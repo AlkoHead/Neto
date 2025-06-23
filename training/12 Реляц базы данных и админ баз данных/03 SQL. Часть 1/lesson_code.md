@@ -203,4 +203,46 @@ FROM customer
 WHERE first_name LIKE '%jam%';
 ```
 
+### Работа с датами и временем
+Разберем основные функции для работы с датами и временем:  
+- **NOW / CURDATE** – возвращает текущие дату и время / дату,  
+- **DATE_ADD** – добавляет интервал времени/даты к дате, а затем  
+возвращает дату, работает как с датой, так и со временем,  
+- **DATE_SUB** – вычитает интервал времени/даты из даты, а затем  
+возвращает дату, работает как с датой, так и со временем,  
+- **YEAR / MONTH / DAY** — возвращает год / месяц / день месяца  
+для заданной даты,  
+- **EXTRACT** – извлекает часть из заданной даты,  
+- **DATEDIFF** – возвращает количество дней между двумя  
+значениями даты,  
+- **QUARTER** – возвращает квартал года для заданного значения даты,
+- **DATE_FORMAT** – форматирует указанную дату,  
+- **TIME_FORMAT** – форматирует время по заданному формату,  
+- **DATE** – извлекает дату из выражения datetime.  
+```sql
+SELECT DATE_ADD(NOW(), INTERVAL 3 DAY);
+#
+SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY);
+#
+SELECT YEAR(NOW()), MONTH(NOW()), WEEK(NOW()), DAY(NOW());
+#
+SELECT EXTRACT(HOUR FROM NOW()), EXTRACT(DAY_MINUTE FROM NOW()),
+EXTRACT(DAY FROM NOW());
+#
+SELECT DATEDIFF(return_date, rental_date), 
+       QUARTER(return_date) FROM rental;
+#
+SELECT DATE_FORMAT(payment_date, '%D – %A – %Y'),
+TIME_FORMAT(TIME(payment_date), '%R') FROM payment;
+```
 
+### BETWEEN
+Для того чтобы найти значения в заданном диапазоне,
+используется оператор **BETWEEN**. Данный оператор можно
+использовать с числами, строками и датами. Крайние значения
+включаются в результат.
+К примеру, нужно найти все платежи, стоимость которых между 5
+и 7 включительно:
+```sql
+SELECT * FROM payment WHERE amount BETWEEN 5 AND 7;
+```

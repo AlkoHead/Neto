@@ -165,6 +165,66 @@ SELECT POSITION("D" IN "AIDDAAANNDD");
 SELECT last_name, SUBSTR(last_name, 2, 3), LEFT(last_name, 3), RIGHT(last_name, 3)
 FROM actor;
 
+# изменение регистра
+SELECT last_name, LOWER(last_name), UPPER(last_name)
+FROM actor;
+
+#  замена
+SELECT last_name, INSERT(last_name, 1, 1, "max")
+FROM actor;
+
+# замена через REPLACE
+SELECT last_name, REPLACE(last_name, 'A', 'F')
+FROM actor;
+
+# вырезаем пробелы
+SELECT TRIM("    aaaa    ")
+
+# запрос на поиск первого совпадения по разделителю "|'
+SELECT SUBSTRING_INDEX("AAA | BBB | CCC", "|", 1);
+
+# найти похожее ( _ любой один знак первый, % все остальные)
+SELECT * FROM actor
+WHERE first_name LIKE "_EN%";
+
+# узнать текущую дату и время
+SELECT NOW();
+
+# извлекаем время
+SELECT TIME(NOW());
+
+# извлекаем дату
+SELECT DATE(NOW());
+
+# добавим 3 дня к дате
+SELECT DATE_ADD(NOW(), INTERVAL 3 DAY);
+
+# добавим 3 месяца к дате
+SELECT DATE_ADD(NOW(), INTERVAL 3 MONTH);
+
+# уменьшаем на 3 месяца
+SELECT DATE_SUB(NOW(), INTERVAL 3 MONTH);
+
+# разбика на год месяц день
+SELECT YEAR(NOW()), MONTH(NOW()), DAY(NOW());
+
+# извлекаем из даты часы
+SELECT EXTRACT(HOUR FROM NOW()); 
 
 
+SELECT DATEDIFF(return_date, rental_date),
+       QUARTER(return_date)
+FROM rental;
+
+# форматирование даты
+SELECT return_date
+FROM rental;
+
+SELECT return_date, DATE_FORMAT(return_date, "%D - %a - %m - %Y")
+FROM rental;
+
+SELECT return_date, 
+       DATE_FORMAT(return_date, "%D - %a - %m - %Y"),
+       TIME_FORMAT(TIME(return_date), "%H : %i : %s")
+FROM rental;
 ```
