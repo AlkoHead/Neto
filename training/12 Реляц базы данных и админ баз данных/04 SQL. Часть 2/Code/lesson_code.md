@@ -222,10 +222,15 @@ GROUP BY MONTH(payment_date);
 ```
 Нужно получить фильмы из категорий, начинающихся на букву С:  
 ```sql
-SELECT MONTH(payment_date),
-COUNT(payment_id) / (SELECT COUNT(1) FROM payment) * 100
-FROM payment
-GROUP BY MONTH(payment_date);
+SELECT f.title, c.name
+FROM film f
+JOIN film_category fc ON fc.film_id = f.film_id
+JOIN category c ON c.category_id = fc.category_id
+WHERE c.category_id IN (
+SELECT category_id
+FROM category
+WHERE name LIKE 'C%')
+ORDER BY f.title;
 ```
 Получим отношение количества платежей к количеству аренд по  
 каждому сотруднику:  
@@ -243,6 +248,11 @@ GROUP BY staff_id) t2 ON s.staff_id = t2.staff_id;
 ```
 
 
-### CASE
+### Условия
+
+## CASE
+
+**CASE** напоминает операторы if/else.  
+
 
 

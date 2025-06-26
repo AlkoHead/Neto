@@ -137,5 +137,10 @@ WHERE prof != 'Руководитель'  -- исключили Руководи
 GROUP BY dep, prof
 HAVING avg_sal > 70000;
 --
+SELECT dep, AVG(sallary) avg_sal, prof FROM sal
+GROUP BY dep, prof
+HAVING avg_sal > 70000 AND avg_sal < 120000;
+--
+
 
 ```
