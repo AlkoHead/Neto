@@ -119,14 +119,23 @@ SELECT * FROM sal;
 --
 SELECT max(sallary) FROM sal;  -- узнаем максимальную ЗП
 --
--- по стичаем среднию ЗП по депортаментам (AVG)
+-- по счетаем среднию(AVG) ЗП по депортаментам
 SELECT dep, AVG(sallary)  FROM sal
 GROUP BY dep;  -- группировка по dep
--- добавим группировку по id
--- для этого необходимо id добавить и в SELECT и GROUP BY
-SELECT dep, AVG(sallary), id FROM sal
-GROUP BY dep, id;
+-- добавим группировку по prof
+-- для этого необходимо prof добавить и в SELECT и GROUP BY
+SELECT dep, AVG(sallary), prof FROM sal
+GROUP BY dep, prof;
+-- применим HAVING в после группировки
+SELECT dep, AVG(sallary) avg_sal, prof FROM sal -- AVG(sallary) алиас (AS) avg_sal
+GROUP BY dep, prof
+HAVING avg_sal > 70000; -- по алиасу считаем
+-- добавим WHERE перед группировкой
+-- применим и WHERE и HAVING
+SELECT dep, AVG(sallary) avg_sal, prof FROM sal
+WHERE prof != 'Руководитель'  -- исключили Руководителя
+GROUP BY dep, prof
+HAVING avg_sal > 70000;
 --
-
 
 ```
