@@ -81,8 +81,168 @@ SELECT c.city, c2.city
 FROM city c
 CROSS JOIN city c2
 WHERE c.city > c2.city;
-### равны
+-- равны
 SELECT c.city, c2.city
 FROM city c, city c2
 WHERE c.city > c2.city;
 ```
+
+
+### UNION/EXCEPT
+
+Если при работе с JOIN соединение данных происходит «слева»  
+или «справа», то при работе с операторами UNION или EXCEPT  
+работа происходит «сверху» и «снизу».  
+Создадим две таблицы и внесем в них данные:  
+```sql
+CREATE TABLE table_1 (
+color_1 VARCHAR(10) NOT NULL
+);
+CREATE TABLE table_2 (
+color_2 VARCHAR(10) NOT NULL
+);
+INSERT INTO table_1
+VALUES('white'), ('black'), ('red'), ('green');
+INSERT INTO table_2
+VALUES('black'), ('yellow'), ('blue'), ('red');
+```
+
+При объединении данных через оператор UNION в результате
+будет список уникальных значений для двух таблиц.  
+```sql
+SELECT color_1 FROM table_1
+UNION
+SELECT color_2 FROM table_2;
+```
+>- Обязательное условие при работе с операторами
+>- **UNION** или **EXCEPT** — количество столбцов и их типы
+>- данных в таблицах сверху и снизу должно быть
+>- одинаковым  
+
+# UNION ALL
+
+При объединении данных через оператор **UNION ALL** в результате  
+будет список всех значений для двух таблиц:  
+```sql
+SELECT color_1 FROM table_1
+UNION ALL
+SELECT color_2 FROM table_2;
+```
+
+# EXCEPT
+
+При использовании оператора EXCEPT из значений, полученных в  
+верхней части запроса, будут вычтены значения, которые  
+совпадут со значениями, полученными в нижней части запроса.
+```sql
+SELECT color_1 FROM table_1
+EXCEPT
+SELECT color_2 FROM table_2;
+```
+Если вдруг MySQL старый
+```sql
+SELECT color_1
+FROM table_1
+WHERE color_1 NOT IN (
+SELECT color_2
+FROM table_2
+);
+```
+
+
+### Агрегатные функции
+
+**Агрегация** — когда данные группируются по ключу, в качестве  
+которого выступает один или несколько атрибутов, и внутри  
+каждой группы вычисляются некоторые статистики.  
+- **SUM** — возвращает общую сумму числового столбца  
+- **COUNT** — возвращает количество строк, соответствующих  
+заданному критерию  
+- **AVG** — возвращает среднее значение числового столбца  
+- **MIN** — возвращает наименьшее значение выбранного столбца  
+- **MAX** — возвращает наибольшее значение выбранного столбца  
+Посчитаем, сколько фильмов в базе начинается на букву 'a':  
+```sql
+SELECT COUNT(*)
+FROM film
+WHERE LOWER(LEFT(title, 1)) = 'a';
+```
+В одном запросе получим информацию по количеству платежей,  
+общей сумме платежей, среднему платежу, максимальному и  
+минимальному платежу по каждому пользователю:  
+
+
+### Группировка данных
+
+**GROUP BY** — агрегирующий оператор, с помощью которого можно
+формировать данные по группам и уже в рамках этих групп
+получать значения с помощью агрегатных функций.  
+В одном запросе получим информацию по количеству платежей и  
+общей сумме платежей по каждому пользователю на каждый  
+месяц:  
+```sql
+SELECT customer_id, MONTH(payment_date), COUNT(payment_id), SUM(amount)
+FROM payment
+GROUP BY customer_id, MONTH(payment_date);
+```
+В примере ниже вместо указания в GROUP BY столбцов title,  
+release_year и lenght можно указать первичный ключ таблицы film  
+ film_id:  
+ ```sql
+ SELECT f.title, f.release_year, f.length, COUNT(fa.actor_id)
+FROM film f
+JOIN film_actor fa ON fa.film_id = f.film_id
+GROUP BY f.film_id;
+```
+
+# HAVING
+
+**WHERE** фильтрует данные до группировки.  
+**HAVING** фильтрует данные после группировки.  
+Найдём пользователей, которые совершили более 40  
+аренд:  
+```sql
+SELECT CONCAT(c.last_name, ' ', c.first_name), COUNT(r.rental_id)
+FROM rental r
+JOIN customer c ON r.customer_id = c.customer_id
+GROUP BY c.customer_id
+HAVING COUNT(r.rental_id) > 40;
+```
+
+
+### Подзапросы
+
+Нужно получить процентное отношение платежей по каждому  
+месяцу к общей сумме платежей:  
+```sql
+SELECT MONTH(payment_date),
+COUNT(payment_id) / (SELECT COUNT(1) FROM payment) * 100
+FROM payment
+GROUP BY MONTH(payment_date);
+```
+Нужно получить фильмы из категорий, начинающихся на букву С:  
+```sql
+SELECT MONTH(payment_date),
+COUNT(payment_id) / (SELECT COUNT(1) FROM payment) * 100
+FROM payment
+GROUP BY MONTH(payment_date);
+```
+Получим отношение количества платежей к количеству аренд по  
+каждому сотруднику:  
+```sql
+SELECT CONCAT(s.last_name, ' ', s.first_name), cp / cr
+FROM staff s
+JOIN (
+SELECT staff_id, COUNT(payment_id) AS cp
+FROM payment
+GROUP BY staff_id) t1 ON s.staff_id = t1.staff_id
+JOIN (
+SELECT staff_id, COUNT(rental_id) AS cr
+FROM rental
+GROUP BY staff_id) t2 ON s.staff_id = t2.staff_id;
+```
+
+
+### CASE
+
+
