@@ -119,7 +119,7 @@ SELECT color_2 FROM table_2;
 >- данных в таблицах сверху и снизу должно быть
 >- одинаковым  
 
-# UNION ALL
+#### UNION ALL
 
 При объединении данных через оператор **UNION ALL** в результате  
 будет список всех значений для двух таблиц:  
@@ -129,7 +129,7 @@ UNION ALL
 SELECT color_2 FROM table_2;
 ```
 
-# EXCEPT
+#### EXCEPT
 
 При использовании оператора EXCEPT из значений, полученных в  
 верхней части запроса, будут вычтены значения, которые  
@@ -195,7 +195,7 @@ JOIN film_actor fa ON fa.film_id = f.film_id
 GROUP BY f.film_id;
 ```
 
-# HAVING
+#### HAVING
 
 **WHERE** фильтрует данные до группировки.  
 **HAVING** фильтрует данные после группировки.  
@@ -250,9 +250,39 @@ GROUP BY staff_id) t2 ON s.staff_id = t2.staff_id;
 
 ### Условия
 
-## CASE
+#### CASE
 
 **CASE** напоминает операторы if/else.  
 
+Если пользователь купил более чем на 200 у. е., то он хороший  клиент, если менее чем на 200, то не  
+очень хороший, в остальных случаях — «средний».  
+```sql
+SELECT customer_id, SUM(amount),
+CASE
+WHEN SUM(amount) > 200 THEN 'Good user'
+WHEN SUM(amount) < 200 THEN 'Bad user'
+ELSE 'Average user'
+END AS good_or_bad
+FROM payment
+GROUP BY customer_id
+ORDER BY SUM(amount) DESC
+LIMIT 5;
+```
 
+#### IFNULL
 
+Функция IFNULL позволяет возвращать альтернативное значение,  
+если выражение возвращает NULL.  
+Нужно получить список всех пользователей и сумму их платежа за  
+18.06.2005, вместо значений NULL нужно проставить 0  
+```sql
+SELECT CONCAT(c.last_name, ' ', c.first_name) AS user,
+IFNULL(SUM(p.amount), 0)
+FROM customer c
+LEFT JOIN (
+SELECT *
+FROM payment
+WHERE DATE(payment_date) = '2005-06-18') p
+ON p.customer_id = c.customer_id
+GROUP BY c.customer_id
+```
