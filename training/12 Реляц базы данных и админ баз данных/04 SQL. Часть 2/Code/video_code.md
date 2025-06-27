@@ -141,6 +141,35 @@ SELECT dep, AVG(sallary) avg_sal, prof FROM sal
 GROUP BY dep, prof
 HAVING avg_sal > 70000 AND avg_sal < 120000;
 --
-
-
+-- CASE
+SELECT *,
+  CASE
+  	WHEN sallary > 50000 THEN 'OK'
+  	WHEN sallary <= 50000 THEN 'Attention'
+  END AS analys  -- AS можно было опустить - END analys
+FROM sal;
+--
+SELECT *,
+  CASE
+  	WHEN sallary > 80000 THEN sallary
+  	WHEN sallary <= 80000 THEN 80001
+  END new_sallary
+FROM sal;
+--
+-- IFNULL
+SELECT l.id, 
+  IFNULL(f.first_name, 'Unknown'), 
+  l.last_name FROM fn f 
+RIGHT JOIN ln l on f.id = l.id;
+--
+-- COALESCE
+-- вернёт первое не NULL значение
+SELECT COALESCE(NULL, NULL, 22, 4, NULL, 8);
+-- 
+SELECT l.id, 
+  COALESCE(f.first_name, l.last_name),  -- вместо нул подставит l.last_name)
+  l.last_name 
+FROM fn f 
+RIGHT JOIN ln l on f.id = l.id;
+--
 ```

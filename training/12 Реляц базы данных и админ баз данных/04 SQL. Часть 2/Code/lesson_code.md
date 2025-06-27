@@ -274,7 +274,7 @@ LIMIT 5;
 Функция IFNULL позволяет возвращать альтернативное значение,  
 если выражение возвращает NULL.  
 Нужно получить список всех пользователей и сумму их платежа за  
-18.06.2005, вместо значений NULL нужно проставить 0  
+18.06.2005, вместо значений NULL нужно проставить 0:  
 ```sql
 SELECT CONCAT(c.last_name, ' ', c.first_name) AS user,
 IFNULL(SUM(p.amount), 0)
@@ -285,4 +285,18 @@ FROM payment
 WHERE DATE(payment_date) = '2005-06-18') p
 ON p.customer_id = c.customer_id
 GROUP BY c.customer_id
+```
+
+#### COALESCE
+
+Функция COALESCE позволяет возвращать первое значение из  
+списка, которое не равно NULL.  
+Выведем в результат первый не NULL результат разницы между  
+датой аренды и датой возврата, текущей датой и датой возврата,  
+текущей датой и датой аренды:  
+```sql
+SELECT rental_id,
+COALESCE(DATEDIFF(return_date, rental_date), DATEDIFF(NOW(), return_date),
+DATEDIFF(NOW(), rental_date)) AS diff
+FROM rental
 ```
