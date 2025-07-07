@@ -46,10 +46,14 @@ sudo cp -rp /home/cryptouser /home/cryptouser.backup
 sudo rm -rf /home/cryptouser
 # Удаляем пакет
 sudo apt remove ecryptfs-utils libecryptfs1 
+# или 
+sudo apt purge ecryptfs-utils libecryptfs1  # purge лучше очищает конфигурационные файлы и гарантирует удаление всех следов конфигурации.
 sudo rm -rf /home/.ecryptfs/
 sudo rm -rf /home/cryptouser.1XLwpC6J/
 # восстанавливаем папку 
 sudo cp -rp /home/cryptouser.backup/ /home/cryptouser
+# или
+sudo mv -rp /home/cryptouser.backup/ /home/cryptouser  # чтобы избежать дублирования структуры.
 ```
 ![task_01_04](img/task_01_04.JPG)
 
