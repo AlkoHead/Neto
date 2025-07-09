@@ -28,7 +28,7 @@ git config --global user.email
 ![task_06](img/task_06.JPG)
 
 7. Выполните команду `git status` и запомните результат.
-
+![task_07](img/task_07.JPG)
 
 8. Отредактируйте файл `README.md` любым удобным способом, тем самым переведя файл в состояние `Modified`.
 
