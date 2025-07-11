@@ -167,14 +167,37 @@ git ls-remote --tags gitlab
 Давайте посмотрим, как будет выглядеть история коммитов при создании веток. 
 
 1. Переключитесь обратно на ветку `main`, которая должна быть связана с веткой `main` репозитория на `github`.
-1. Посмотрите лог коммитов и найдите хеш коммита с названием `Prepare to delete and move`, который был создан в пределах предыдущего домашнего задания. 
-1. Выполните `git checkout` по хешу найденного коммита. 
-1. Создайте новую ветку `fix`, базируясь на этом коммите `git switch -c fix`.
-1. Отправьте новую ветку в репозиторий на GitHub `git push -u origin fix`.
-1. Посмотрите, как визуально выглядит ваша схема коммитов: https://github.com/YOUR_ACCOUNT/devops-netology/network. 
-1. Теперь измените содержание файла `README.md`, добавив новую строчку.
-1. Отправьте изменения в репозиторий и посмотрите, как изменится схема на странице https://github.com/YOUR_ACCOUNT/devops-netology/network 
+```bash
+git switch main
+git branch -vv  # проверка
+```
+2. Посмотрите лог коммитов и найдите хеш коммита с названием `Prepare to delete and move`, который был создан в пределах предыдущего домашнего задания. 
+```bash
+git log --oneline
+# или
+git log --grep="Prepare to delete and move" --oneline
+# полный поиск
+git log --all --grep="Prepare to delete and move"
+```
+3. Выполните `git checkout` по хешу найденного коммита. 
+```bash
+git checkout f6e622f 
+```
+4. Создайте новую ветку `fix`, базируясь на этом коммите `git switch -c fix`.
+```bash
+git switch -c fix
+```
+5. Отправьте новую ветку в репозиторий на GitHub `git push -u origin fix`.
+```bash
+git push -u origin fix
+```
+6. Посмотрите, как визуально выглядит ваша схема коммитов: https://github.com/YOUR_ACCOUNT/devops-netology/network. 
+![task_03_06](img/task_03_06.JPG)
+7. Теперь измените содержание файла `README.md`, добавив новую строчку.
+8. Отправьте изменения в репозиторий и посмотрите, как изменится схема на странице https://github.com/YOUR_ACCOUNT/devops-netology/network 
 и как изменится вывод команды `git log`.
+![task_03_08](img/task_03_08.JPG)
+![task_03_08_log](img/task_03_08_log.JPG)
 
 ## Задание 4. Упрощаем себе жизнь
 
