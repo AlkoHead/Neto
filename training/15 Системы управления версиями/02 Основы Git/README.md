@@ -125,6 +125,12 @@ origin-https	https://github.com/andrey-borue/devops-netology.git (push)
 
 ![task_01_01](img/task_01_01.JPG)
 
+Если вдруг на Gitlab есть данные, а на GitHub нету (является текущей веткой)
+```bash
+git fetch gitlab main   # Скачать изменения
+git merge gitlab/main  # Слить с текущей веткой
+```
+
 
 ## Задание 2. Теги
 
@@ -132,11 +138,29 @@ origin-https	https://github.com/andrey-borue/devops-netology.git (push)
 исправить её и выложить исправленный код в продакшн. Мы никуда не будем выкладывать код, но пометим некоторые коммиты тегами и создадим от них ветки. 
 
 1. Создайте легковестный тег `v0.0` на HEAD-коммите и запуште его во все три добавленных на предыдущем этапе `upstream`.
-1. Аналогично создайте аннотированный тег `v0.1`.
-1. Перейдите на страницу просмотра тегов в GitHab (и в других репозиториях) и посмотрите, чем отличаются созданные теги. 
-    * в GitHub — https://github.com/YOUR_ACCOUNT/devops-netology/releases;
-    * в GitLab — https://gitlab.com/YOUR_ACCOUNT/devops-netology/-/tags;
+```bash
+git tag v0.0
+```
+2. Аналогично создайте аннотированный тег `v0.1`.
+```bash
+git tag -a v0.1 -m "Версия 0.1"
+# пушим
+git push origin --tags
+git push gitlab --tags
+```
+Проверка
+```bash
+git ls-remote --tags origin
+git ls-remote --tags gitlab
+```
+
+3. Перейдите на страницу просмотра тегов в GitHab (и в других репозиториях) и посмотрите, чем отличаются созданные теги. 
+    * в GitHub — https://github.com/AlkoHead/Neto/tags;
+    * в GitLab — https://gitlab.com/alkohead-group/neto/-/tags;
     * в Bitbucket — список тегов расположен в выпадающем меню веток на отдельной вкладке. 
+![gitlab_tegs](img/gitlab_tegs01.JPG)
+![github_tegs](img/github_tegs01.JPG)
+
 
 ## Задание 3. Ветки 
 
