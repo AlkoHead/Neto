@@ -1,0 +1,11 @@
+#version: "3"
+include:
+  - docker-compose.yaml
+services:
+  portainer:
+#    network_mode: host
+    ports:
+      - "9000:9000"
+    image: portainer/portainer-ce:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
