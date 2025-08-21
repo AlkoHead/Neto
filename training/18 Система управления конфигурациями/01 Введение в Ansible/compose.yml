@@ -1,0 +1,20 @@
+services:
+  centos7:
+    image: centos:7
+    container_name: centos7
+    hostname: centos7
+    command: /bin/bash -c "sleep infinity"
+    networks:
+      - ansible-net
+
+  ubuntu:
+    image: ubuntu:latest
+    container_name: ubuntu
+    hostname: ubuntu
+    command: /bin/bash -c "apt-get update && apt-get install -y python3 && sleep infinity"
+    networks:
+      - ansible-net
+
+networks:
+  ansible-net:
+    driver: bridge
