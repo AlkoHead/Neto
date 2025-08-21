@@ -184,6 +184,8 @@ Encryption successful
 ```
 ![task22](img/task22.JPG)
 
+![task22_1](img/task22_1.JPG)
+
 3. Запустите `playbook`, убедитесь, что для нужных хостов применился новый `fact`.
 ```bash
 ansible-playbook -i inventory/prod.yml site.yml --ask-vault-pass
