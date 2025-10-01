@@ -41,6 +41,8 @@ See 'snap info docker' for additional versions.
 3. (Необязательная часть, *) Изучите инструкцию в проекте и запустите web-приложение без использования docker, с помощью venv. (Mysql БД можно запустить в docker run).
 4. (Необязательная часть, *) Изучите код приложения и добавьте управление названием таблицы через ENV переменную.
 
+[Ссылка на fork](https://github.com/AlkoHead/shvirtd-example-python "https://github.com/AlkoHead/shvirtd-example-python")
+
 [Dockerfile.python](code/Dockerfile.python)
 
 Сборка
@@ -79,6 +81,8 @@ docker run -it --rm my-app bash
 5. Подключитесь к БД mysql с помощью команды ```docker exec -ti <имя_контейнера> mysql -uroot -p<пароль root-пользователя>```(обратите внимание что между ключем -u и логином root нет пробела. это важно!!! тоже самое с паролем) . Введите последовательно команды (не забываем в конце символ ; ): ```show databases; use <имя вашей базы данных(по-умолчанию example)>; show tables; SELECT * from requests LIMIT 10;```.
 
 6. Остановите проект. В качестве ответа приложите скриншот sql-запроса.
+
+[Ссылка на fork](https://github.com/AlkoHead/shvirtd-example-python "https://github.com/AlkoHead/shvirtd-example-python")
 
 ---
 Приложение запускается, но не может подключиться к MySQL при инициализации, потому что БД еще не готова принимать подключения.
@@ -121,6 +125,8 @@ show databases; use virtd; show tables; SELECT * from requests LIMIT 10;
 4. Зайдите на сайт проверки http подключений, например(или аналогичный): ```https://check-host.net/check-http``` и запустите проверку вашего сервиса ```http://<внешний_IP-адрес_вашей_ВМ>:8090```. Таким образом трафик будет направлен в ingress-proxy. Трафик должен пройти через цепочки: Пользователь → Internet → Nginx → HAProxy → FastAPI(запись в БД) → HAProxy → Nginx → Internet → Пользователь
 5. (Необязательная часть) Дополнительно настройте remote ssh context к вашему серверу. Отобразите список контекстов и результат удаленного выполнения ```docker ps -a```
 6. Повторите SQL-запрос на сервере и приложите скриншот и ссылку на fork.
+
+[Ссылка на fork](https://github.com/AlkoHead/shvirtd-example-python "https://github.com/AlkoHead/shvirtd-example-python")
 
 ![task_04_02](img/task_04_02.JPG)
 ![task_04_04](img/task_04_04.JPG)
@@ -178,7 +184,7 @@ ls on_terr/bin/
 
 ## Задача 6.1
 Добейтесь аналогичного результата, используя docker cp.  
-Предоставьте скриншоты  действий .
+Предоставьте скриншоты  действий.
 
 ```bash
 # создание временного контейнера
