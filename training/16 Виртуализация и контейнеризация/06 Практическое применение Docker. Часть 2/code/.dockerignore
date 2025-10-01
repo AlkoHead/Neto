@@ -1,0 +1,13 @@
+.git/
+haproxy/
+nginx/
+Dockerfile*
+compose.yaml
+proxy.yaml
+.dockerignore
+.env
+README.md
+LICENSE
+schema.pdf
+__pycache__/
+*.pyc

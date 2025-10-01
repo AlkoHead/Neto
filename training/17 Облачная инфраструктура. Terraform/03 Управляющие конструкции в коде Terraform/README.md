@@ -1,5 +1,7 @@
 # Домашнее задание к занятию «Управляющие конструкции в коде Terraform»
 
+# [РЕШЕНИЕ](https://github.com/AlkoHead/terraform-03 "https://github.com/AlkoHead/terraform-03")
+
 ### Цели задания
 
 1. Отработать основные принципы и методы работы с управляющими конструкциями Terraform.
