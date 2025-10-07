@@ -10,3 +10,28 @@
 
 # own secret vars store.
 personal.auto.tfvars
+
+# Ansible
+ansible.cfg
+*.retry
+.vault_pass
+vault_pass.txt
+
+# SSH
+*.pem
+*.key
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+
+# Логи и временные файлы
+*.log
+.ansible-lint
+.ansible_tmp/
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
