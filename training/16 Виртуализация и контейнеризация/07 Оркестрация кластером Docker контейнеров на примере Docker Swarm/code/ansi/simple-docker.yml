@@ -1,0 +1,42 @@
+# simple-docker-ubuntu.yml
+---
+- name: Simple Docker installation on Ubuntu
+  hosts: docker_servers
+  become: yes
+
+  tasks:
+    - name: Update package cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker from Ubuntu repositories
+      apt:
+        name:
+          - docker.io
+          - docker-doc
+          - docker-compose
+          - docker-compose-v2
+          - containerd
+          - runc
+        state: present
+
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+
+    - name: Verify installation
+      command: docker --version
+      register: docker_result
+      changed_when: false
+
+    - name: Show Docker version
+      debug:
+        var: docker_result.stdout
