@@ -1,0 +1,16 @@
+# Vector configuration
+data_dir: "/var/lib/vector"
+
+[sources.demo]
+type = "demo_logs"
+format = "syslog"
+interval = 30
+
+[sinks.console]
+type = "console"
+inputs = ["demo"]
+encoding.codec = "json"
+
+[api]
+enabled = true
+address = "0.0.0.0:8686"
