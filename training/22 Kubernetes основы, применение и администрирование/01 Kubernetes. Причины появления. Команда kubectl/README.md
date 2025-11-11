@@ -98,6 +98,7 @@ microk8s status --wait-ready
 nano /var/snap/microk8s/current/certs/csr.conf.template
 ```
 Добовляем IP с которого будет подключатся
+
 ![task01_03](img/task01_03.JPG)
 
 ```bash
