@@ -74,7 +74,7 @@ git push -u origin main
 
 [vector-role](https://github.com/AlkoHead/vector-role "https://github.com/AlkoHead/vector-role")
 
-
+[playbook](https://github.com/AlkoHead/Neto/tree/main/training/18%20Система%20управления%20конфигурациями/06%20Работа%20с%20roles/playbook "https://github.com/AlkoHead/Neto/tree/main/training/18%20Система%20управления%20конфигурациями/06%20Работа%20с%20roles/playbook")
 
 
 ### Последовательность
