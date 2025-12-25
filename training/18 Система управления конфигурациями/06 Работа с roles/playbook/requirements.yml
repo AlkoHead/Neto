@@ -1,0 +1,15 @@
+---
+  - src: https://github.com/AlkoHead/lighthouse-role.git
+    scm: git
+    version: main
+    name: lighthouse
+
+  - src: https://github.com/AlkoHead/vector-role.git
+    scm: git
+    version: main
+    name: vector
+
+  - src: https://github.com/AlexeySetevoi/ansible-clickhouse.git  
+    scm: git
+    version: "1.13"
+    name: clickhouse

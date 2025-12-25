@@ -1,0 +1,96 @@
+---
+- name: Cleanup ClickHouse
+  hosts: clickhouse
+  become: true
+  tasks:
+    - name: Stop and disable clickhouse-server
+      systemd:
+        name: clickhouse-server
+        state: stopped
+        enabled: false
+
+    - name: Remove ClickHouse packages
+      apt:
+        name:
+          - clickhouse-server
+          - clickhouse-client
+          - clickhouse-common
+        state: absent
+        purge: true  # ← удаляет конфиги!
+
+    - name: Remove ClickHouse data and config directories
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/clickhouse-server
+        - /var/lib/clickhouse
+        - /var/log/clickhouse-server
+
+- name: Cleanup Vector
+  hosts: vector
+  become: true
+  tasks:
+    - name: Stop and disable vector
+      systemd:
+        name: vector
+        state: stopped
+        enabled: false
+
+    - name: Remove vector package
+      apt:
+        name: vector
+        state: absent
+        purge: true
+
+    - name: Remove vector config and data
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/vector
+        - /var/lib/vector
+        - /usr/share/keyrings/clickhouse-keyring.gpg  # если добавляли
+
+    - name: Remove vector user (optional)
+      user:
+        name: vector
+        state: absent
+        remove: true  # удаляет домашний каталог (если есть)
+
+- name: Cleanup Lighthouse
+  hosts: lighthouse
+  become: true
+  tasks:
+    - name: Stop nginx
+      systemd:
+        name: nginx
+        state: stopped
+        enabled: false
+
+    - name: Remove web files
+      file:
+        path: /var/www/lighthouse
+        state: absent
+
+    - name: Remove nginx site config
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/nginx/sites-enabled/lighthouse
+        - /etc/nginx/sites-available/lighthouse
+
+    - name: Remove PHP and nginx (опционально)
+      apt:
+        name:
+          - nginx
+          - php-fpm
+          - php-cli
+          - php-curl
+        state: absent
+        purge: true
+
+    - name: Reload systemd after removal
+      systemd:
+        daemon_reload: true
