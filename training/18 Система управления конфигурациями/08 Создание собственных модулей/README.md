@@ -212,6 +212,7 @@ ansible-playbook test_module.yml
 ![task04](img/task04.JPG)
 
 Содержимое
+
 ![tasl04_01](img/task04_01.JPG)
 
 [Ссылка на test_module.yml](code/test_module.yml)
