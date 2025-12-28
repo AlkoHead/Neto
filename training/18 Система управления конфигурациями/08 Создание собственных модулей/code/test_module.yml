@@ -1,0 +1,19 @@
+---
+- name: Тест моего модуля
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Создать файл с помощью my_own_module
+      my_own_module:
+        path: /tmp/test_my_module.txt
+        content: |
+          Это тестовый файл.
+          Создан моим собственным Ansible-модулем!
+
+    - name: Убедиться, что файл существует и содержит правильный текст
+      command: cat /tmp/test_my_module.txt
+      register: result
+
+    - name: Вывести содержимое
+      debug:
+        msg: "{{ result.stdout_lines }}"

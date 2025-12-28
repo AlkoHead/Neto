@@ -1,0 +1,6 @@
+---
+- name: Создать файл с помощью роли из коллекции
+  hosts: localhost
+  connection: local
+  roles:
+    - AlkoHead.my_own_collection.file_creator
