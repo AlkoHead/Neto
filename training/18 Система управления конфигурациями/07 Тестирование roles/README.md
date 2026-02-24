@@ -101,8 +101,14 @@ molecule test
 ![task_01_05](img/task_01_05.JPG)
 6. Добавьте новый тег на коммит с рабочим сценарием в соответствии с семантическим версионированием.
 
-Действие: Выполнены команды git add ., git commit, git tag v2.0.0, git push origin main, git push --tags
-
+`Действие:` 
+```bash
+ git add . 
+ git commit 
+ git tag v1.0.0 
+ git push origin main 
+ git push --tags
+```bash
 ### Tox
 
 1. Добавьте в директорию с vector-role файлы из [директории](./example).
