@@ -1,0 +1,51 @@
+---
+- name: Create
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    molecule_platforms: "{{ molecule_yml.platforms }}"
+
+  tasks:
+    - name: Create docker instances
+      community.docker.docker_container:
+        name: "{{ item.name }}"
+        image: "{{ item.image }}"
+        state: started
+        command: "{{ item.command | default('/bin/bash -c \"while true; do sleep 1000; done\"') }}"
+        privileged: "{{ item.privileged | default(false) }}" 
+        hostname: "{{ item.hostname | default(item.name) }}"
+      loop: "{{ molecule_platforms }}" 
+      loop_control:
+        label: "{{ item.name }}"
+      register: instance_creation_results
+
+    - name: Initialize instance config list
+      ansible.builtin.set_fact:
+        instance_conf: []
+      run_once: true
+
+    - name: Generate inventory details
+      ansible.builtin.set_fact:
+        instance_conf: "{{ instance_conf + [
+            {
+              'instance': item.container.Name,
+              'address': item.container.NetworkSettings.Networks.bridge.IPAddress,
+              'user': molecule_instance_config_is_defined | default('root'),
+              'ansible_connection': 'community.docker.docker',
+              'ansible_host': item.container.Name,
+              'ansible_remote_tmp': '/tmp/ansible-tmp'
+            }
+          ] }}"
+      loop: "{{ instance_creation_results.results }}"
+      when: item.changed or True 
+
+    - name: Dump instance config
+      ansible.builtin.copy:
+        content: |
+          # Molecule managed
+          {{ instance_conf | to_json | from_json | to_yaml }}
+        dest: "{{ molecule_instance_config }}"
+        mode: "0600"
+      when: instance_conf | length > 0

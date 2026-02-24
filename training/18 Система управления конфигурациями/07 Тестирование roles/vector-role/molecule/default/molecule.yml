@@ -1,0 +1,42 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: testing-instance-debian11
+    image: debian:bullseye
+
+    command: /bin/bash -c "while true; do sleep 1000; done"
+    privileged: True
+    pre_build_image: true
+
+  - name: testing-instance-ubuntu-latest
+    image: ubuntu:latest
+    command: /bin/bash -c "while true; do sleep 1000; done"
+    privileged: True
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+
+  roles_path:
+          - ../../
+
+  inventory:
+    group_vars:
+      all:
+        ansible_python_interpreter: /usr/bin/python3
+        ansible_connection: community.docker.docker
+        ansible_remote_tmp: /tmp/ansible-tmp
+        ansible_module_compression: 'no'
+        ansible_become: false
+        vector_path: /opt/vector
+        vector_version: "0.37.1"
+        vector_data_path: /var/lib/vector
+        vector_config: /etc/vector/vector.toml
+        vector_service_state: started
+        ansible_architecture: amd64
+
+verifier:
+  name: testinfra

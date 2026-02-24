@@ -1,0 +1,4 @@
+---
+vector_service_state: started
+vector_sink_host: 127.0.0.1
+vector_sink_port: 8123

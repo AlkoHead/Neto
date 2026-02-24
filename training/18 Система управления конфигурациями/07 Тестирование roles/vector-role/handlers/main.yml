@@ -1,0 +1,9 @@
+---
+- name: restart vector
+  become: true
+  ansible.builtin.service:
+    name: vector
+    state: restarted
+  when: ansible_connection != 'community.docker.docker'
+  tags:
+    - vector

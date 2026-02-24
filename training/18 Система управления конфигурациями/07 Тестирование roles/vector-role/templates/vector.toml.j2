@@ -1,0 +1,10 @@
+[sources.host_metrics]
+type = "host_metrics"
+interval = "10s"
+
+[sinks.clickhouse_sink]
+type = "http"
+inputs = ["host_metrics"]
+endpoint = "http://{{ vector_sink_host }}:{{ vector_sink_port }}/?database=default&query=INSERT%20INTO%20vector_metrics%20FORMAT%20JSONEachRow"
+encoding = "json"
+healthcheck = true

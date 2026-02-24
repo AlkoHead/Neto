@@ -1,0 +1,114 @@
+---
+- name: Install necessary tools (curl, gnupg)
+  ansible.builtin.package:
+    name:
+      - curl
+      - gnupg
+    state: present
+  tags:
+    - vector
+
+- name: Create directory for Vector installation
+  become: true
+  ansible.builtin.file:
+    path: "{{ vector_path }}"
+    state: directory
+    mode: '0755'
+  tags:
+    - vector
+
+- name: Get vector distribution archive
+  become: true
+  ansible.builtin.get_url:
+    url: "https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-{{ ansible_architecture }}-unknown-linux-musl.tar.gz"
+    dest: "{{ vector_path }}/vector-{{ vector_version }}-{{ ansible_architecture }}-unknown-linux-musl.tar.gz"
+    mode: '0644'
+  tags:
+    - vector
+
+- name: Unarchive vector distribution
+  become: true
+  ansible.builtin.unarchive:
+    src: "{{ vector_path }}/vector-{{ vector_version }}-{{ ansible_architecture }}-unknown-linux-musl.tar.gz"
+    dest: "{{ vector_path }}"
+    remote_src: true
+    extra_opts: [--strip-components=2]
+    creates: "{{ vector_path }}/bin/vector"
+  tags:
+    - vector
+
+- name: Create symbolic link for vector binary
+  become: true
+  ansible.builtin.file:
+    src: "{{ vector_path }}/bin/vector"
+    dest: /usr/bin/vector
+    owner: root
+    group: root
+    state: link
+  tags:
+    - vector
+
+- name: Create directory for Vector data/logs
+  become: true
+  ansible.builtin.file:
+    path: "{{ vector_data_path }}"
+    owner: root
+    group: root
+    state: directory
+    mode: '0755'
+  tags:
+    - vector
+
+- name: Ensure Systemd directory exists
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/system
+    state: directory
+    mode: '0755'
+  tags:
+    - vector
+
+- name: Create Vector unit file
+  become: true
+  ansible.builtin.template:
+    src: "vector.service.j2"
+    dest: /etc/systemd/system/vector.service
+    mode: '0644'
+    owner: root
+    group: root
+  tags:
+    - vector
+
+- name: Ensure /etc/vector configuration directory exists
+  become: true
+  ansible.builtin.file:
+    path: /etc/vector
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  tags:
+    - vector
+
+- name: Deploy Vector configuration file
+  become: true
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/vector.toml.j2"
+    dest: "{{ vector_config }}"
+    owner: root
+    group: root
+    mode: '0644'
+    force: true
+  tags:
+    - vector
+  notify: restart vector
+
+- name: Ensure Vector service is running and enabled
+  become: true
+  ansible.builtin.service:
+    name: vector
+    state: "{{ vector_service_state }}"
+    enabled: yes
+  when: ansible_connection != 'community.docker.docker'
+  tags:
+    - vector
