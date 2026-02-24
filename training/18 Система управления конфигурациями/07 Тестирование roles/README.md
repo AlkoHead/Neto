@@ -103,11 +103,11 @@ molecule test
 
 Действие:
 ```bash
- git add . 
- git commit 
- git tag v1.0.0 
- git push origin main 
- git push --tags
+git add . 
+git commit 
+git tag v1.0.0 
+git push origin main 
+git push --tags
 ```
 
 ### Tox
@@ -177,5 +177,12 @@ ERROR:   py39-ansible30: commands failed
 
 9. Добавьте новый тег на коммит с рабочим сценарием в соответствии с семантическим версионированием.
 
-
+```bash
+git add . 
+git commit 
+git tag v2.0.0 
+git push origin main 
+git push --tags
+```
+![task_tags](img/task_tags.JPG)
 
