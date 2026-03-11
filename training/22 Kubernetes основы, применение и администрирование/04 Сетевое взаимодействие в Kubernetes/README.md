@@ -136,11 +136,13 @@ curl localhost:30080
    - `backend` (образ `wbitt/network-multitool`).
 
 [deployment-frontend.yaml](code/deployment-frontend.yaml)
+
 [deployment-backend.yaml](code/deployment-backend.yaml)
 
 2. **Создать Service** для каждого приложения.
 
 [service-frontend.yaml](code/service-frontend.yaml)
+
 [service-backend.yaml](code/service-backend.yaml)
 
 3. **Включить Ingress-контроллер**:
