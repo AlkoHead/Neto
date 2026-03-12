@@ -106,6 +106,11 @@ cat tls.crt | base64 -w 0
 cat tls.key | base64 -w 0
 ```
 
+Не забываем додбавить в `/etc/hosts` строчку формата
+`IP myapp.example.com`
+
+![task_02_03](img/task_02_03.JPG)
+
 ![task_02_02](img/task_02_02.JPG)
 
 ---
