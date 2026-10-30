@@ -1,0 +1,38 @@
+#version: "3"
+services:
+  teamcity:
+    image: jetbrains/teamcity-server
+    user: "1000:988"  # UID:1000 (maks), GID:988 (docker)
+    volumes:
+      - ~/teamcity/data:/data/teamcity_server/datadir
+      - ~/teamcity/logs:/opt/teamcity/logs
+    ports:
+      - 8111:8111
+    restart: unless-stopped
+
+  teamcity-agent:
+    image: jetbrains/teamcity-agent
+    user: "1000:988"  # UID:1000 (maks), GID:988 (docker)
+    depends_on:
+      - teamcity
+    volumes:
+      - ~/teamcity/agent:/data/teamcity_agent/conf
+    environment:
+      SERVER_URL: "http://teamcity:8111"
+    restart: unless-stopped
+
+  nexus:
+    image: sonatype/nexus3
+    user: "200:200"  # Официальный UID/GID для Nexus
+    volumes:
+      - ~/nexus/data:/nexus-data
+    ports:
+      - 8081:8081
+    environment:
+      - NEXUS_CONTEXT=/
+    restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
